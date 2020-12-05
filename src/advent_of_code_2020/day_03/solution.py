@@ -90,8 +90,7 @@ class AdventOfCodePuzzleDay03:
         return product
 
     def __solve(self, x_step: int, y_step: int):
-        x = 0
-        y = 0
+        x, y = 0, 0
         result = 0
 
         while y < (len(self.map) - 1):
