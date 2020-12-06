@@ -77,6 +77,15 @@ class AdventOfCodePuzzleDay05:
 
         return highest_seat_id
 
+    def solve_puzzle_1a(self) -> int:
+        highest_seat_id = 0
+
+        for line in self.boarding_passes:
+            line = line.replace('F', '0').replace('B', '1').replace('R', '1').replace('L', '0')
+            highest_seat_id = max(highest_seat_id, int(line, 2))
+
+        return highest_seat_id
+
     def solve_puzzle_2(self) -> int:
         all_seat_ids = [
             row * self.MULTIPLIER + col for row in self.NUMBER_OF_ROWS for col in self.NUMBER_OF_COLUMNS
@@ -91,6 +100,19 @@ class AdventOfCodePuzzleDay05:
         seat_id = self.__find_seat_id(all_seat_ids=all_seat_ids, taken_seat_ids=taken_seat_ids)
 
         return seat_id
+
+    def solve_puzzle_2a(self) -> int:
+        possible = set(range(1024))
+
+        for line in self.boarding_passes:
+            line = line.replace('F', '0').replace('B', '1').replace('R', '1').replace('L', '0')
+            possible.discard(int(line, 2))
+
+        for candidate in possible:
+            if candidate - 1 not in possible and candidate + 1 not in possible:
+                return candidate
+        else:
+            raise NotImplementedError('unreachable')
 
     def __get_id(self, items: list, directions: str):
         for direct in directions:
