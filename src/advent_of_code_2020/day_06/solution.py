@@ -109,7 +109,7 @@ class AdventOfCodePuzzleDay06:
     def solve_puzzle_2(self) -> int:
         result = 0
         for answer_group in self.collected_answers.split("\n\n"):
-            number_of_persons = len([item for item in answer_group.split("\n") if item])
+            number_of_persons = len([item for item in answer_group.splitlines() if item])
             answers_concat = answer_group.replace("\n", "")
             counts = Counter(list(answers_concat))
             result += list(counts.values()).count(number_of_persons)
