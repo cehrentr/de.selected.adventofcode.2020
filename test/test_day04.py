@@ -1,5 +1,5 @@
 import unittest
-from src.advent_of_code_2020.day_04.solution import AdventOfCodePuzzleDay04
+from day_04 import AdventOfCodePuzzleDay04
 
 
 class TestAdventOfCodePuzzleDay04(unittest.TestCase):
