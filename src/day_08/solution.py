@@ -125,34 +125,34 @@ class AdventOfCodePuzzleDay08:
         self.operations = [item.split() for item in puzzle_input]
 
     def solve_puzzle_1(self) -> int:
-        _, accumulator = self.__process_all_operations()
+        _, accumulator = self.__process_all_operations(self.operations)
         return accumulator
 
     def solve_puzzle_2(self) -> int:
         accumulator = -1
 
         for idx, item in enumerate(self.operations):
-            tmp_operations = deepcopy(self.operations)
+            operations = deepcopy(self.operations)
 
             if item[0] == "nop":
-                self.operations[idx][0] = "jmp"
+                operations[idx][0] = "jmp"
             elif item[0] == "jmp":
-                self.operations[idx][0] = "nop"
+                operations[idx][0] = "nop"
 
-            processed_all, accumulator = self.__process_all_operations()
+            processed_all, accumulator = self.__process_all_operations(operations)
+
             if processed_all:
                 break
-            else:
-                self.operations = tmp_operations
 
         return accumulator
 
-    def __process_all_operations(self) -> Tuple[bool, int]:
+    @staticmethod
+    def __process_all_operations(operations: list) -> Tuple[bool, int]:
         processed_operations = set()
         accumulator, idx = 0, 0
 
-        while (idx <= len(self.operations) - 1) and idx not in processed_operations:
-            op, value = self.operations[idx]
+        while (idx <= len(operations) - 1) and idx not in processed_operations:
+            op, value = operations[idx]
             processed_operations.add(idx)
 
             if op == "nop":
@@ -165,4 +165,4 @@ class AdventOfCodePuzzleDay08:
             else:
                 raise NotImplementedError(op)
 
-        return idx == len(self.operations), accumulator
+        return idx == len(operations), accumulator
